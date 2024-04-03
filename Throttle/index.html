@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Click API Call</title>
+</head>
+<body>
+    <button id="apiButton">Click Me for API Call</button>
+
+    <script>
+let counter = 0
+        const getData = ()=>{
+            console.log("Api call",counter++)
+        }
+    
+    
+    
+        const myThrottle = (fn,d) =>{
+    let flag = true 
+   return function (...args){
+    if(flag){
+        const context = this
+        fn.apply(context,args)
+        flag= false 
+        setTimeout(()=>{
+            flag= true 
+
+        },d)
+    }
+   }
+  
+     }
+
+     const throttledApiCall = myThrottle(getData,2000)
+
+        
+
+        document.getElementById('apiButton').addEventListener('click', throttledApiCall);
+    </script>
+</body>
+</html>
